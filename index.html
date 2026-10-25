@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eaf8ef">
+  <title>Hello, world! - Good Day Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #153633;
+      --muted: #58716b;
+      --paper: #eaf8ef;
+      --coral: #f36e52;
+      --yellow: #f7d65d;
+      --green: #b6e870;
+      --white: #fffef8;
+      font-family: "DM Sans", "Trebuchet MS", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: radial-gradient(#b9d9c8 0.8px, transparent 0.8px);
+      background-size: 20px 20px;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .site-shell {
+      width: min(1120px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      min-height: 88px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #c9e0d1;
+    }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .wordmark-icon {
+      display: grid;
+      width: 34px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--yellow);
+      font-size: 18px;
+    }
+
+    .edition {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .edition::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #70bd6c;
+      content: "";
+    }
+
+    main { padding: 58px 0 34px; }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.88fr);
+      align-items: center;
+      gap: 52px;
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: #bb4e39;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 620px;
+      margin: 0;
+      font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+      font-size: clamp(56px, 8.2vw, 102px);
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 0.94;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--coral);
+    }
+
+    .lead {
+      max-width: 430px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .scene {
+      position: relative;
+      display: grid;
+      min-height: 340px;
+      place-items: center;
+      overflow: hidden;
+      border: 1.5px solid var(--ink);
+      border-radius: 48% 48% 42% 42% / 45% 45% 38% 38%;
+      background: var(--yellow);
+      box-shadow: 8px 8px 0 var(--ink);
+      isolation: isolate;
+    }
+
+    .scene::before, .scene::after {
+      position: absolute;
+      z-index: -1;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .scene::before {
+      width: 250px;
+      height: 250px;
+      background: #ffed9e;
+    }
+
+    .scene::after {
+      width: 325px;
+      height: 126px;
+      transform: rotate(-22deg);
+    }
+
+    .sun-face {
+      display: grid;
+      width: 190px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 5px 6px 0 var(--ink);
+      font-size: 100px;
+      line-height: 1;
+      animation: bob 3.5s ease-in-out infinite;
+    }
+
+    .orbit-note {
+      position: absolute;
+      right: 12%;
+      bottom: 19%;
+      display: grid;
+      width: 58px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--white);
+      font-size: 28px;
+      transform: rotate(10deg);
+    }
+
+    .sparkle-note {
+      position: absolute;
+      top: 17%;
+      left: 15%;
+      font-size: 30px;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .greeting-tool {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 36px;
+      margin-top: 64px;
+      padding: 28px 32px;
+      border: 1.5px solid var(--ink);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .tool-heading {
+      margin: 0 0 19px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 20px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .name-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    input {
+      width: 100%;
+      min-width: 0;
+      height: 48px;
+      padding: 0 14px;
+      border: 1.5px solid #b9cec2;
+      border-radius: 5px;
+      outline: none;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    input:focus-visible, button:focus-visible {
+      outline: 3px solid #3b9a76;
+      outline-offset: 3px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 17px;
+      border: 1.5px solid var(--ink);
+      border-radius: 5px;
+      background: var(--green);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }
+
+    .button:hover { transform: translateY(-2px); box-shadow: 0 3px 0 var(--ink); }
+    .button:active { transform: translateY(1px); box-shadow: none; }
+    .button-primary { background: var(--coral); }
+    .button-quiet { min-height: 42px; padding: 0 13px; background: #f1f6ee; }
+
+    .mood-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mood-button {
+      min-height: 40px;
+      padding: 0 12px;
+      border: 1.5px solid #b9cec2;
+      border-radius: 5px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 140ms ease, border-color 140ms ease, transform 140ms ease;
+    }
+
+    .mood-button:hover { transform: translateY(-1px); }
+    .mood-button[aria-pressed="true"] { border-color: var(--ink); background: var(--yellow); }
+
+    .result-row {
+      display: flex;
+      min-height: 73px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #d9e6dc;
+    }
+
+    .result {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 28px 0 34px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer span:last-child { color: #bb4e39; font-weight: 700; }
+
+    .burst-emoji {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      font-size: 28px;
+      animation: burst 950ms cubic-bezier(.15,.7,.3,1) forwards;
+    }
+
+    @keyframes bob { 50% { transform: translateY(-8px) rotate(3deg); } }
+    @keyframes twinkle { 50% { transform: rotate(18deg) scale(1.16); } }
+    @keyframes burst {
+      from { opacity: 1; transform: translate(0, 0) rotate(0) scale(.6); }
+      to { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--spin)) scale(1.2); }
+    }
+
+    @media (max-width: 760px) {
+      .site-shell { width: min(100% - 36px, 540px); }
+      .topbar { min-height: 72px; }
+      main { padding-top: 38px; }
+      .intro { grid-template-columns: 1fr; gap: 32px; }
+      h1 { font-size: clamp(58px, 15vw, 88px); }
+      .lead { margin-top: 16px; font-size: 16px; }
+      .scene { min-height: 280px; width: min(100%, 420px); justify-self: center; }
+      .sun-face { width: 160px; font-size: 84px; }
+      .greeting-tool { grid-template-columns: 1fr; gap: 26px; margin-top: 48px; padding: 24px 20px; }
+    }
+
+    @media (max-width: 420px) {
+      .site-shell { width: calc(100% - 28px); }
+      .edition { font-size: 10px; }
+      .name-row { flex-direction: column; }
+      .result-row { align-items: flex-start; flex-direction: column; }
+      .footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="wordmark" href="#home" aria-label="Good Day Club home">
+        <span class="wordmark-icon" aria-hidden="true">✳</span>
+        <span>GOOD DAY CLUB</span>
+      </a>
+      <span class="edition">A tiny hello machine</span>
+    </header>
+
+    <main id="home">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Your daily dose of nice</p>
+          <h1 id="page-title">Hello,<span>world!</span></h1>
+          <p class="lead">A little wave from this side of the screen. Make it yours, pick a mood, and send some good energy out there.</p>
+        </div>
+
+        <div class="scene" aria-label="A smiling sun orbiting a tiny planet" role="img">
+          <span class="sparkle-note" aria-hidden="true">✦</span>
+          <span class="sun-face" aria-hidden="true">🌞</span>
+          <span class="orbit-note" aria-hidden="true">🌎</span>
+        </div>
+      </section>
+
+      <section class="greeting-tool" aria-labelledby="tool-title">
+        <div>
+          <h2 class="tool-heading" id="tool-title">Make someone smile</h2>
+          <label class="field-label" for="name-input">Who are we saying hello to?</label>
+          <div class="name-row">
+            <input id="name-input" type="text" value="world" maxlength="32" autocomplete="off" placeholder="Type a name">
+            <button class="button button-primary" id="greet-button" type="button">Say hello <span aria-hidden="true">👋</span></button>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="tool-heading">Pick the vibe</h2>
+          <div class="mood-list" role="group" aria-label="Greeting mood">
+            <button class="mood-button" type="button" data-mood="sunny" aria-pressed="true">☀️ Sunny</button>
+            <button class="mood-button" type="button" data-mood="cozy" aria-pressed="false">☕ Cozy</button>
+            <button class="mood-button" type="button" data-mood="cosmic" aria-pressed="false">🪐 Cosmic</button>
+          </div>
+          <div class="result-row">
+            <p class="result" id="greeting-result" aria-live="polite">Hello, world! 🌞</p>
+            <button class="button button-quiet" id="copy-button" type="button" aria-label="Copy greeting">⧉ <span>Copy</span></button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Made for this very moment.</span>
+      <span>Keep being lovely ✿</span>
+    </footer>
+  </div>
+
+  <script>
+    const nameInput = document.querySelector("#name-input");
+    const result = document.querySelector("#greeting-result");
+    const greetButton = document.querySelector("#greet-button");
+    const copyButton = document.querySelector("#copy-button");
+    const moodButtons = [...document.querySelectorAll(".mood-button")];
+    const moods = {
+      sunny: { greeting: "Hello", emoji: "🌞" },
+      cozy: { greeting: "Well hello there", emoji: "☕" },
+      cosmic: { greeting: "Greetings, earthling", emoji: "🪐" }
+    };
+    let selectedMood = "sunny";
+
+    function updateGreeting(celebrate = false) {
+      const name = nameInput.value.trim() || "world";
+      const mood = moods[selectedMood];
+      result.textContent = `${mood.greeting}, ${name}! ${mood.emoji}`;
+      if (celebrate) makeConfetti();
+    }
+
+    function makeConfetti() {
+      const symbols = ["✨", "💛", "🌼", "🎉", "💫", "🧡"];
+      const origin = greetButton.getBoundingClientRect();
+      for (let index = 0; index < 12; index += 1) {
+        const piece = document.createElement("span");
+        const angle = (Math.PI * 2 * index) / 12;
+        const distance = 54 + Math.random() * 70;
+        piece.className = "burst-emoji";
+        piece.textContent = symbols[index % symbols.length];
+        piece.style.left = `${origin.left + origin.width / 2}px`;
+        piece.style.top = `${origin.top + origin.height / 2}px`;
+        piece.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+        piece.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+        piece.style.setProperty("--spin", `${Math.random() * 180 - 90}deg`);
+        document.body.append(piece);
+        piece.addEventListener("animationend", () => piece.remove(), { once: true });
+      }
+    }
+
+    greetButton.addEventListener("click", () => updateGreeting(true));
+    nameInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") updateGreeting(true);
+    });
+    moodButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectedMood = button.dataset.mood;
+        moodButtons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        updateGreeting();
+      });
+    });
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(result.textContent);
+        copyButton.innerHTML = "✓ <span>Copied</span>";
+        window.setTimeout(() => { copyButton.innerHTML = "⧉ <span>Copy</span>"; }, 1400);
+      } catch {
+        copyButton.querySelector("span").textContent = "Select to copy";
+      }
+    });
+  </script>
+</body>
+</html>
